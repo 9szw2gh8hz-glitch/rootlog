@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RootLog - Local Data. Zero Cloud. Total Transparency.</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0D1117;
+            color: #C9D1D9;
+        }
+        .mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .terminal-green {
+            color: #00FF41;
+        }
+        .hardware-gold {
+            color: #D4AF37;
+        }
+        .glass {
+            background: rgba(13, 17, 23, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 255, 65, 0.1);
+        }
+        .glow {
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.3);
+        }
+        .hover-lift {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .hover-lift:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 255, 65, 0.4);
+        }
+        .scan-line {
+            background: linear-gradient(180deg, 
+                transparent 0%, 
+                rgba(0, 255, 65, 0.03) 50%, 
+                transparent 100%);
+            animation: scan 4s linear infinite;
+        }
+        @keyframes scan {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100%); }
+        }
+        .grid-bg {
+            background-image: 
+                linear-gradient(rgba(0, 255, 65, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 65, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+        }
+        .fade-in {
+            animation: fadeIn 1s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="grid-bg">
+    <!-- Sticky CTA Bar -->
+    <div id="sticky-cta" class="fixed top-0 left-0 right-0 z-50 glass border-b border-green-500/30 transform -translate-y-full transition-transform duration-300">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+            <div class="flex items-center gap-4">
+                <span class="terminal-green font-bold text-lg mono">RootLog</span>
+                <span class="text-gray-400 text-sm hidden sm:inline">Track air quality locally — no cloud required</span>
+            </div>
+            <button onclick="scrollToConfig()" class="bg-green-500 hover:bg-green-400 text-black font-bold py-2 px-6 rounded-lg mono transition-all">
+                Configure Yours
+            </button>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="min-h-screen flex items-center justify-center px-4 py-20 relative overflow-hidden">
+        <div class="scan-line absolute inset-0 pointer-events-none"></div>
+        <div class="max-w-6xl mx-auto text-center z-10 fade-in">
+            <div class="inline-block bg-green-500/10 border border-green-500/30 rounded-full px-4 py-2 mb-6">
+                <span class="terminal-green text-sm mono">Your data lives on your desk, not in someone's cloud</span>
+            </div>
+            
+            <div class="mb-8">
+                <h1 class="text-6xl md:text-8xl font-black mb-6 tracking-tight leading-tight">
+                    <span class="text-white">Monitor Your Air Quality.</span><br>
+                    <span class="terminal-green">Keep Your Privacy.</span>
+                </h1>
+            </div>
+            
+            <p class="text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto leading-relaxed">
+                RootLog is an offline environmental data logger that tracks temperature, humidity, CO2, and air quality—storing everything locally on a microSD card. No internet. No subscriptions. No compromises.
+            </p>
+
+            <div class="flex flex-wrap justify-center gap-6 mb-12 max-w-3xl mx-auto">
+                <div class="flex items-center gap-2">
+                    <span class="terminal-green text-2xl">✓</span>
+                    <span class="text-lg text-gray-300">100% offline operation</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <span class="terminal-green text-2xl">✓</span>
+                    <span class="text-lg text-gray-300">Decades of storage</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <span class="terminal-green text-2xl">✓</span>
+                    <span class="text-lg text-gray-300">Open data format</span>
+                </div>
+            </div>
+
+            <button onclick="scrollToConfig()" class="bg-green-500 hover:bg-green-400 text-black font-bold py-4 px-10 rounded-lg text-xl hover-lift mono transition-all glow mb-4">
+                Start Monitoring — From $29
+            </button>
+            <p class="text-gray-500 text-sm">Ships in 2 weeks • 30-day returns • Open source firmware</p>
+        </div>
+    </section>
+
+    <!-- Product Visuals -->
+    <section class="py-20 px-4 bg-gradient-to-b from-green-900/5 to-transparent">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-3xl md:text-4xl font-black mb-4 text-center text-white">See It In Action</h2>
+            <p class="text-center text-gray-400 mb-12 max-w-2xl mx-auto">Compact design. Clear display. Built to blend into any environment while continuously monitoring what matters.</p>
+            
+            <div class="grid md:grid-cols-2 gap-8 mb-12">
+                <!-- Product Mockup 1 -->
+                <div class="glass rounded-xl p-8 hover-lift">
+                    <div class="bg-gray-900 rounded-lg border-2 border-green-500/30 aspect-square flex items-center justify-center mb-4 relative overflow-hidden">
+                        <div class="absolute inset-0 bg-gradient-to-br from-green-500/10 to-transparent"></div>
+                        <div class="relative z-10 text-center">
+                            <div class="bg-black/80 rounded-lg p-6 border border-green-500/50 inline-block">
+                                <div class="mono text-green-500 text-xs mb-2">RootLog v1.0</div>
+                                <div class="text-white text-2xl font-bold mb-1">22.4°C</div>
+                                <div class="text-gray-400 text-sm">CO2: 412ppm</div>
+                                <div class="flex gap-2 mt-3 justify-center">
+                                    <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                                    <div class="text-green-500 text-xs">LOGGING</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">Live Display</h3>
+                    <p class="text-gray-400">OLED screen shows current readings at a glance. Status LED confirms logging activity.</p>
+                </div>
+
+                <!-- Product Mockup 2 -->
+                <div class="glass rounded-xl p-8 hover-lift">
+                    <div class="bg-gray-900 rounded-lg border-2 border-green-500/30 aspect-square flex items-center justify-center mb-4 relative overflow-hidden">
+                        <div class="absolute inset-0 bg-gradient-to-br from-green-500/10 to-transparent"></div>
+                        <div class="relative z-10 p-8">
+                            <!-- Component layout visualization -->
+                            <div class="border-2 border-green-500/30 rounded-lg p-4 bg-black/50">
+                                <div class="grid grid-cols-2 gap-3">
+                                    <div class="bg-green-500/20 rounded p-2 text-center">
+                                        <div class="text-green-500 text-xs mono">ESP32</div>
+                                    </div>
+                                    <div class="bg-green-500/20 rounded p-2 text-center">
+                                        <div class="text-green-500 text-xs mono">RTC</div>
+                                    </div>
+                                    <div class="bg-green-500/20 rounded p-2 text-center">
+                                        <div class="text-green-500 text-xs mono">BME280</div>
+                                    </div>
+                                    <div class="bg-green-500/20 rounded p-2 text-center">
+                                        <div class="text-green-500 text-xs mono">SGP30</div>
+                                    </div>
+                                </div>
+                                <div class="bg-green-500/20 rounded p-2 text-center mt-3">
+                                    <div class="text-green-500 text-xs mono">microSD Slot</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">Skeleton Edition</h3>
+                    <p class="text-gray-400">Transparent enclosure showcases the hardware. Perfect for educational settings and maker enthusiasts.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Who Is This For -->
+    <section class="py-20 px-4">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-4xl md:text-6xl font-black mb-12 text-center text-white">Who Is RootLog For?</h2>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="glass rounded-xl p-6 hover-lift">
+                    <div class="terminal-green text-4xl mb-4">🏢</div>
+                    <h3 class="text-2xl font-bold mb-3 text-white">Home Offices</h3>
+                    <p class="text-gray-400 mb-4">Track workspace conditions over weeks and months without cloud accounts or recurring fees.</p>
+                    <div class="text-sm text-gray-500 mono">→ Monitor air quality during long work sessions</div>
+                </div>
+
+                <div class="glass rounded-xl p-6 hover-lift">
+                    <div class="terminal-green text-4xl mb-4">🎓</div>
+                    <h3 class="text-2xl font-bold mb-3 text-white">Classrooms</h3>
+                    <p class="text-gray-400 mb-4">Log environmental data for educational projects without internet dependency or privacy concerns.</p>
+                    <div class="text-sm text-gray-500 mono">→ Teach data science with real measurements</div>
+                </div>
+
+                <div class="glass rounded-xl p-6 hover-lift">
+                    <div class="terminal-green text-4xl mb-4">🛠️</div>
+                    <h3 class="text-2xl font-bold mb-3 text-white">Studios & Workshops</h3>
+                    <p class="text-gray-400 mb-4">Monitor air quality and climate in maker spaces where ventilation and temperature matter.</p>
+                    <div class="text-sm text-gray-500 mono">→ Ensure safe working conditions offline</div>
+                </div>
+
+                <div class="glass rounded-xl p-6 hover-lift">
+                    <div class="terminal-green text-4xl mb-4">🔒</div>
+                    <h3 class="text-2xl font-bold mb-3 text-white">Privacy-Conscious Users</h3>
+                    <p class="text-gray-400 mb-4">Keep your environmental data completely private. No servers. No telemetry. No compromises.</p>
+                    <div class="text-sm text-gray-500 mono">→ Physical data ownership only</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="py-20 px-4 bg-gradient-to-b from-transparent to-green-900/5">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="text-4xl md:text-6xl font-black mb-12 text-center text-white">How It Works</h2>
+            
+            <div class="grid md:grid-cols-3 gap-8 mb-12">
+                <div class="text-center">
+                    <div class="glass rounded-2xl p-8 mb-4 hover-lift">
+                        <div class="text-6xl terminal-green mb-4">📊</div>
+                        <h3 class="text-2xl font-bold text-white mb-2">1. Sensors Measure</h3>
+                    </div>
+                    <p class="text-gray-400">Temperature, humidity, pressure, CO2, and volatile organic compounds are continuously monitored.</p>
+                </div>
+
+                <div class="text-center">
+                    <div class="glass rounded-2xl p-8 mb-4 hover-lift">
+                        <div class="text-6xl terminal-green mb-4">💾</div>
+                        <h3 class="text-2xl font-bold text-white mb-2">2. Data Stored Locally</h3>
+                    </div>
+                    <p class="text-gray-400">Every reading is written to the microSD card with precise timestamps. No internet required.</p>
+                </div>
+
+                <div class="text-center">
+                    <div class="glass rounded-2xl p-8 mb-4 hover-lift">
+                        <div class="text-6xl terminal-green mb-4">📈</div>
+                        <h3 class="text-2xl font-bold text-white mb-2">3. Export When Ready</h3>
+                    </div>
+                    <p class="text-gray-400">Pop out the SD card and access standard CSV files. Import into any tool you prefer.</p>
+                </div>
+            </div>
+
+            <div class="glass rounded-xl p-8">
+                <h3 class="text-xl font-bold mb-6 text-center terminal-green mono">// Hardware Block Diagram</h3>
+                <div class="flex items-center justify-center flex-wrap gap-4 text-center">
+                    <div class="bg-gray-900/70 rounded-lg p-4 border border-green-500/30">
+                        <div class="text-sm mono text-gray-400 mb-1">BME280 + SGP30</div>
+                        <div class="font-bold text-white">Sensors</div>
+                    </div>
+                    <div class="terminal-green text-2xl">→</div>
+                    <div class="bg-gray-900/70 rounded-lg p-4 border border-green-500/30">
+                        <div class="text-sm mono text-gray-400 mb-1">ESP32-C3</div>
+                        <div class="font-bold text-white">Microcontroller</div>
+                    </div>
+                    <div class="terminal-green text-2xl">→</div>
+                    <div class="bg-gray-900/70 rounded-lg p-4 border border-green-500/30">
+                        <div class="text-sm mono text-gray-400 mb-1">MicroSD Card</div>
+                        <div class="font-bold text-white">Storage</div>
+                    </div>
+                    <div class="terminal-green text-2xl">→</div>
+                    <div class="bg-gray-900/70 rounded-lg p-4 border border-green-500/30">
+                        <div class="text-sm mono text-gray-400 mb-1">Universal Format</div>
+                        <div class="font-bold text-white">CSV Output</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Data Visualization Example -->
+    <section class="py-20 px-4 bg-gradient-to-b from-transparent to-green-900/5">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-3xl md:text-4xl font-black mb-4 text-center text-white">Visualize Your Environment</h2>
+            <p class="text-center text-gray-400 mb-12 max-w-2xl mx-auto">Your CSV data works with any analysis tool. Here's a week of monitoring from a home office.</p>
+            
+            <div class="glass rounded-xl p-8 mb-8">
+                <!-- Temperature Chart Mockup -->
+                <div class="mb-6">
+                    <div class="flex items-center justify-between mb-3">
+                        <h3 class="text-lg font-bold text-white">Temperature & Humidity (7 days)</h3>
+                        <div class="text-xs text-gray-500 mono">Generated from: 2026-01-03_log.csv</div>
+                    </div>
+                    <div class="bg-gray-900/50 rounded-lg p-6 border border-green-500/20 h-64 relative overflow-hidden">
+                        <!-- Grid background -->
+                        <div class="absolute inset-0 opacity-20" style="background-image: linear-gradient(rgba(0,255,65,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(0,255,65,0.1) 1px, transparent 1px); background-size: 40px 40px;"></div>
+                        
+                        <!-- Temperature line (simulated) -->
+                        <svg class="absolute inset-0 w-full h-full" style="overflow: visible;">
+                            <defs>
+                                <linearGradient id="tempGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#00ff41;stop-opacity:0.3" />
+                                    <stop offset="100%" style="stop-color:#00ff41;stop-opacity:0" />
+                                </linearGradient>
+                            </defs>
+                            <!-- Simulated temperature curve -->
+                            <path d="M 0 140 Q 60 120, 120 130 T 240 125 T 360 135 T 480 128 T 600 132 T 720 130" 
+                                  stroke="#00ff41" stroke-width="3" fill="none" opacity="0.8"/>
+                            <path d="M 0 140 Q 60 120, 120 130 T 240 125 T 360 135 T 480 128 T 600 132 T 720 130 L 720 250 L 0 250 Z" 
+                                  fill="url(#tempGradient)" opacity="0.5"/>
+                            
+                            <!-- Humidity line -->
+                            <path d="M 0 180 Q 60 170, 120 175 T 240 172 T 360 178 T 480 174 T 600 176 T 720 175" 
+                                  stroke="#d4af37" stroke-width="2" fill="none" opacity="0.6" stroke-dasharray="5,5"/>
+                        </svg>
+                        
+                        <!-- Legend -->
+                        <div class="absolute bottom-4 left-4 flex gap-4 text-xs">
+                            <div class="flex items-center gap-2">
+                                <div class="w-4 h-0.5 bg-green-500"></div>
+                                <span class="text-gray-300 mono">Temperature (°C)</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <div class="w-4 h-0.5 bg-yellow-600" style="background: repeating-linear-gradient(90deg, #d4af37 0, #d4af37 3px, transparent 3px, transparent 6px);"></div>
+                                <span class="text-gray-300 mono">Humidity (%)</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Y-axis labels -->
+                        <div class="absolute left-0 top-0 bottom-0 flex flex-col justify-between py-4 text-xs text-gray-500 mono">
+                            <span>26°</span>
+                            <span>22°</span>
+                            <span>18°</span>
+                        </div>
+                        
+                        <!-- X-axis labels -->
+                        <div class="absolute bottom-0 left-0 right-0 flex justify-between px-8 text-xs text-gray-500 mono">
+                            <span>Mon</span>
+                            <span>Wed</span>
+                            <span>Fri</span>
+                            <span>Sun</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- CO2 Chart Mockup -->
+                <div>
+                    <div class="flex items-center justify-between mb-3">
+                        <h3 class="text-lg font-bold text-white">CO2 Levels (24 hours)</h3>
+                        <div class="flex items-center gap-2">
+                            <div class="w-3 h-3 bg-green-500 rounded-full"></div>
+                            <span class="text-xs text-gray-400">Good</span>
+                            <div class="w-3 h-3 bg-yellow-500 rounded-full ml-2"></div>
+                            <span class="text-xs text-gray-400">Moderate</span>
+                            <div class="w-3 h-3 bg-red-500 rounded-full ml-2"></div>
+                            <span class="text-xs text-gray-400">Poor</span>
+                        </div>
+                    </div>
+                    <div class="bg-gray-900/50 rounded-lg p-6 border border-green-500/20 h-48 relative overflow-hidden">
+                        <!-- Bar chart simulation -->
+                        <div class="absolute bottom-8 left-8 right-8 flex items-end justify-between gap-1 h-32">
+                            <div class="bg-green-500/60 w-full rounded-t" style="height: 40%"></div>
+                            <div class="bg-green-500/60 w-full rounded-t" style="height: 35%"></div>
+                            <div class="bg-green-500/60 w-full rounded-t" style="height: 42%"></div>
+                            <div class="bg-yellow-500/60 w-full rounded-t" style="height: 65%"></div>
+                            <div class="bg-yellow-500/60 w-full rounded-t" style="height: 70%"></div>
+                            <div class="bg-yellow-500/60 w-full rounded-t" style="height: 68%"></div>
+                            <div class="bg-red-500/60 w-full rounded-t" style="height: 85%"></div>
+                            <div class="bg-red-500/60 w-full rounded-t" style="height: 82%"></div>
+                            <div class="bg-yellow-500/60 w-full rounded-t" style="height: 72%"></div>
+                            <div class="bg-yellow-500/60 w-full rounded-t" style="height: 62%"></div>
+                            <div class="bg-green-500/60 w-full rounded-t" style="height: 48%"></div>
+                            <div class="bg-green-500/60 w-full rounded-t" style="height: 38%"></div>
+                        </div>
+                        
+                        <!-- X-axis -->
+                        <div class="absolute bottom-0 left-0 right-0 flex justify-between px-8 text-xs text-gray-500 mono">
+                            <span>6am</span>
+                            <span>12pm</span>
+                            <span>6pm</span>
+                            <span>12am</span>
+                        </div>
+                        
+                        <!-- Y-axis label -->
+                        <div class="absolute left-0 top-4 text-xs text-gray-500 mono">ppm</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="glass rounded-xl p-6 text-center">
+                    <div class="terminal-green text-3xl font-bold mb-2">Excel</div>
+                    <p class="text-gray-400 text-sm">Open CSV directly in spreadsheets</p>
+                </div>
+                <div class="glass rounded-xl p-6 text-center">
+                    <div class="terminal-green text-3xl font-bold mb-2">Python</div>
+                    <p class="text-gray-400 text-sm">Pandas, Matplotlib, custom analysis</p>
+                </div>
+                <div class="glass rounded-xl p-6 text-center">
+                    <div class="terminal-green text-3xl font-bold mb-2">Grafana</div>
+                    <p class="text-gray-400 text-sm">Professional dashboards & alerts</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Comparison Table -->
+    <section class="py-20 px-4">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="text-4xl md:text-6xl font-black mb-12 text-center text-white">RootLog vs Typical Smart Monitors</h2>
+            
+            <div class="glass rounded-xl overflow-hidden">
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead>
+                            <tr class="border-b border-green-500/30">
+                                <th class="text-left p-6 text-gray-400 font-bold mono text-sm">Feature</th>
+                                <th class="text-center p-6 terminal-green font-bold text-lg">RootLog</th>
+                                <th class="text-center p-6 text-gray-500 font-bold text-lg">Typical Smart Monitor</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-green-500/10">
+                            <tr class="hover:bg-green-500/5">
+                                <td class="p-6 text-white">Cloud Required</td>
+                                <td class="p-6 text-center terminal-green text-2xl">✗</td>
+                                <td class="p-6 text-center text-red-400 text-2xl">✓</td>
+                            </tr>
+                            <tr class="hover:bg-green-500/5">
+                                <td class="p-6 text-white">Subscription</td>
+                                <td class="p-6 text-center terminal-green text-2xl">✗</td>
+                                <td class="p-6 text-center text-red-400 text-2xl">Often</td>
+                            </tr>
+                            <tr class="hover:bg-green-500/5">
+                                <td class="p-6 text-white">Local Storage</td>
+                                <td class="p-6 text-center terminal-green text-2xl">✓</td>
+                                <td class="p-6 text-center text-red-400 text-2xl">✗</td>
+                            </tr>
+                            <tr class="hover:bg-green-500/5">
+                                <td class="p-6 text-white">Internet Dependency</td>
+                                <td class="p-6 text-center terminal-green">None</td>
+                                <td class="p-6 text-center text-red-400">Required</td>
+                            </tr>
+                            <tr class="hover:bg-green-500/5">
+                                <td class="p-6 text-white">Data Ownership</td>
+                                <td class="p-6 text-center terminal-green">Full</td>
+                                <td class="p-6 text-center text-red-400">Limited</td>
+                            </tr>
+                            <tr class="hover:bg-green-500/5">
+                                <td class="p-6 text-white">Works Indefinitely</td>
+                                <td class="p-6 text-center terminal-green text-2xl">✓</td>
+                                <td class="p-6 text-center text-red-400">Until servers shut down</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Data Output Examples -->
+    <section class="py-20 px-4">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="text-4xl md:text-5xl font-black mb-6 text-center">
+                <span class="text-white">Your Data,</span> <span class="terminal-green">Human Readable.</span>
+            </h2>
+            <p class="text-center text-xl text-gray-400 mb-12">Pop the SD card into your laptop. Drag the CSV into Excel, Python, or Grafana. No proprietary software required.</p>
+            
+            <div class="glass rounded-xl p-6 overflow-x-auto glow mb-8">
+                <div class="text-xs terminal-green mb-2 mono">// sample_data.csv</div>
+                <pre class="mono text-sm text-gray-300"><code>Date, Time, Temp_C, Hum_%, Press_hPa, eCO2_ppm, TVOC_ppb
+06-01-2026, 21:00:01, 22.4, 45.1, 1013.25, 410, 12
+06-01-2026, 21:01:01, 22.5, 45.0, 1013.24, 412, 13
+06-01-2026, 21:02:01, 22.5, 45.2, 1013.23, 411, 12
+06-01-2026, 21:03:01, 22.6, 45.1, 1013.25, 413, 14
+06-01-2026, 21:04:01, 22.6, 45.0, 1013.26, 415, 13</code></pre>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="glass rounded-xl p-6">
+                    <div class="terminal-green mono text-sm mb-2">// Sampling Interval</div>
+                    <h3 class="text-2xl font-bold text-white mb-2">1 minute</h3>
+                    <p class="text-gray-400">Configurable from 10 seconds to 1 hour</p>
+                </div>
+
+                <div class="glass rounded-xl p-6">
+                    <div class="terminal-green mono text-sm mb-2">// File Size</div>
+                    <h3 class="text-2xl font-bold text-white mb-2">~1MB / week</h3>
+                    <p class="text-gray-400">At 1-minute intervals. Centuries on a 64GB card.</p>
+                </div>
+
+                <div class="glass rounded-xl p-6">
+                    <div class="terminal-green mono text-sm mb-2">// Data Retention</div>
+                    <h3 class="text-2xl font-bold text-white mb-2">600+ years</h3>
+                    <p class="text-gray-400">On a standard 64GB microSD card</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Anti-Cloud Manifesto -->
+    <section class="py-20 px-4 relative">
+        <div class="max-w-4xl mx-auto">
+            <div class="glass rounded-2xl p-8 md:p-12 hover-lift">
+                <h2 class="text-4xl md:text-5xl font-black mb-6 terminal-green">Technical Transparency</h2>
+                
+                <div class="grid md:grid-cols-2 gap-6 mb-8">
+                    <div class="bg-gray-900/50 rounded-lg p-6 border border-green-500/20">
+                        <div class="terminal-green text-sm mb-2 mono">// DESIGNED FOR</div>
+                        <h3 class="text-xl font-bold mb-2 text-white">Continuous Operation</h3>
+                        <p class="text-gray-400">Built to run 24/7 with minimal power draw. USB-C powered for reliable, always-on monitoring.</p>
+                    </div>
+                    <div class="bg-gray-900/50 rounded-lg p-6 border border-green-500/20">
+                        <div class="terminal-green text-sm mb-2 mono">// ARCHITECTURE</div>
+                        <h3 class="text-xl font-bold mb-2 text-white">Offline by Design</h3>
+                        <p class="text-gray-400">No Wi-Fi chip. No cellular modem. Physically incapable of network communication.</p>
+                    </div>
+                    <div class="bg-gray-900/50 rounded-lg p-6 border border-green-500/20">
+                        <div class="terminal-green text-sm mb-2 mono">// PRIVACY</div>
+                        <h3 class="text-xl font-bold mb-2 text-white">No Account. No Tracking.</h3>
+                        <p class="text-gray-400">Zero telemetry. Zero analytics. Your data never touches our servers because we don't have any.</p>
+                    </div>
+                    <div class="bg-gray-900/50 rounded-lg p-6 border border-green-500/20">
+                        <div class="terminal-green text-sm mb-2 mono">// POWER</div>
+                        <h3 class="text-xl font-bold mb-2 text-white">5V USB-C</h3>
+                        <p class="text-gray-400">Standard phone charger compatible. Low power consumption (~150mA average).</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technical Specs -->
+    <section class="py-20 px-4">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-4xl md:text-6xl font-black mb-12 text-center">
+                <span class="text-white">The Technical</span> <span class="hardware-gold">Guts</span>
+            </h2>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="glass rounded-xl p-6 hover-lift">
+                    <div class="terminal-green mono text-sm mb-2">// PROCESSOR</div>
+                    <h3 class="text-2xl font-bold mb-3 text-white">ESP32-C3</h3>
+                    <p class="text-gray-400">RISC-V architecture. Compact power. Hackable firmware.</p>
+                </div>
+
+                <div class="glass rounded-xl p-6 hover-lift">
+                    <div class="terminal-green mono text-sm mb-2">// ENVIRONMENT</div>
+                    <h3 class="text-2xl font-bold mb-3 text-white">BME280</h3>
+                    <p class="text-gray-400">Precision temp, humidity & pressure sensing. Industrial grade.</p>
+                </div>
+
+                <div class="glass rounded-xl p-6 hover-lift">
+                    <div class="terminal-green mono text-sm mb-2">// AIR QUALITY</div>
+                    <h3 class="text-2xl font-bold mb-3 text-white">SGP30</h3>
+                    <p class="text-gray-400">CO2 and Volatile Organic Compound detection logic.</p>
+                </div>
+
+                <div class="glass rounded-xl p-6 hover-lift">
+                    <div class="terminal-green mono text-sm mb-2">// TIMEKEEPING</div>
+                    <h3 class="text-2xl font-bold mb-3 text-white">DS3231 RTC</h3>
+                    <p class="text-gray-400">Real-time clock with battery backup. Accuracy is everything.</p>
+                </div>
+
+                <div class="glass rounded-xl p-6 hover-lift">
+                    <div class="terminal-green mono text-sm mb-2">// DISPLAY</div>
+                    <h3 class="text-2xl font-bold mb-3 text-white">0.91" OLED</h3>
+                    <p class="text-gray-400">High contrast, low power. Glows in the dark.</p>
+                </div>
+
+                <div class="glass rounded-xl p-6 hover-lift">
+                    <div class="terminal-green mono text-sm mb-2">// STORAGE</div>
+                    <h3 class="text-2xl font-bold mb-3 text-white">MicroSD</h3>
+                    <p class="text-gray-400">Centuries of data on a single card. Your archives.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Configurator -->
+    <section class="py-20 px-4 bg-gradient-to-b from-green-900/5 to-transparent">
+        <div class="max-w-6xl mx-auto text-center">
+            <h2 class="text-4xl md:text-6xl font-black mb-4 text-white">Configure Your RootLog</h2>
+            <p class="text-xl text-gray-400 mb-12">Choose your style and version. Ships in 2 weeks.</p>
+
+            <!-- Product Configurator -->
+            <div class="mb-12" id="configurator">
+                <div class="max-w-4xl mx-auto">
+                    <!-- Enclosure Style Selection -->
+                    <div class="mb-8">
+                        <h3 class="text-2xl font-bold mb-6 text-center text-white">Choose Your Style</h3>
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <!-- Skeleton Edition -->
+                            <div class="glass rounded-lg p-6 cursor-pointer hover-lift border-2 border-green-500/50 bg-green-500/5" id="skeleton-option">
+                                <div class="w-full h-48 bg-gray-800 rounded-lg flex items-center justify-center border-2 border-green-500/30 mb-4">
+                                    <div class="text-center">
+                                        <div class="terminal-green text-5xl mb-3 mono">[ ]</div>
+                                        <div class="text-sm text-gray-400 mono">Components Visible</div>
+                                    </div>
+                                </div>
+                                <h4 class="text-xl font-bold text-white mb-2 text-center">Skeleton Edition</h4>
+                                <p class="text-sm text-gray-400 text-center">Transparent case shows all components. Perfect for makers and educational use.</p>
+                            </div>
+
+                            <!-- Enclosed Edition -->
+                            <div class="glass rounded-lg p-6 cursor-pointer hover-lift border-2 border-gray-600/50" id="enclosed-option">
+                                <div class="w-full h-48 bg-gray-800 rounded-lg flex items-center justify-center border-2 border-gray-600/30 mb-4">
+                                    <div class="text-center">
+                                        <div class="text-gray-400 text-5xl mb-3 mono">▀▄</div>
+                                        <div class="text-sm text-gray-400 mono">Clean & Minimal</div>
+                                    </div>
+                                </div>
+                                <h4 class="text-xl font-bold text-white mb-2 text-center">Enclosed Edition</h4>
+                                <p class="text-sm text-gray-400 text-center">Full enclosure. Only screen and button visible. Professional appearance.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Price Tier Selection -->
+                    <div class="mb-8">
+                        <h3 class="text-2xl font-bold mb-6 text-center text-white">Select Your Version</h3>
+                        <div class="grid md:grid-cols-3 gap-4">
+                            <button class="glass rounded-lg p-6 hover-lift border-2 border-green-500/30 hover:border-green-500 transition-all text-center">
+                                <div class="terminal-green mono text-sm mb-2">// DIY KIT</div>
+                                <div class="text-3xl font-black text-white mb-2">$29</div>
+                                <div class="text-sm text-gray-400">Build it yourself</div>
+                            </button>
+                            <button class="glass rounded-lg p-6 hover-lift border-2 border-yellow-600/30 hover:border-yellow-600 transition-all text-center">
+                                <div class="hardware-gold mono text-sm mb-2">// PRE-ASSEMBLED</div>
+                                <div class="text-3xl font-black text-white mb-2">$55</div>
+                                <div class="text-sm text-gray-400">Ready to use</div>
+                            </button>
+                            <button class="glass rounded-lg p-6 hover-lift border-2 border-blue-500/30 hover:border-blue-500 transition-all text-center">
+                                <div class="text-blue-400 mono text-sm mb-2">// EXTENDED</div>
+                                <div class="text-3xl font-black text-white mb-2">$75</div>
+                                <div class="text-sm text-gray-400">Premium package</div>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Final CTA -->
+                    <div class="text-center">
+                        <div class="mb-4">
+                            <div class="text-sm text-gray-400 mono">Selected: <span id="selected-config" class="terminal-green">Skeleton Edition • DIY Kit • $29</span></div>
+                        </div>
+                        <button class="bg-green-500 hover:bg-green-400 text-black font-bold py-4 px-10 rounded-lg text-lg hover-lift mono transition-all glow">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+    <a href="sample_data.txt" download="SampleData.txt" class="glass hover:bg-gray-700 text-gray-300 border-2 border-gray-600 font-bold py-4 px-8 rounded-lg text-lg hover-lift mono transition-all inline-block text-center">
+        Download Sample Data
+    </a>
+
+    <button class="glass hover:bg-gray-700 text-gray-300 border-2 border-gray-600 font-bold py-4 px-8 rounded-lg text-lg hover-lift mono transition-all">
+        View Full Specs
+    </button>
+</div>
+
+            <script>
+                // Sticky CTA behavior
+                window.addEventListener('scroll', () => {
+                    const stickyCTA = document.getElementById('sticky-cta');
+                    if (window.scrollY > 800) {
+                        stickyCTA.classList.remove('-translate-y-full');
+                    } else {
+                        stickyCTA.classList.add('-translate-y-full');
+                    }
+                });
+
+                function scrollToConfig() {
+                    document.getElementById('configurator').scrollIntoView({ 
+                        behavior: 'smooth',
+                        block: 'center'
+                    });
+                }
+
+                // Simple configurator logic
+                let selectedStyle = 'Skeleton Edition';
+                let selectedTier = 'DIY Kit';
+                let selectedPrice = '$29';
+
+                const skeletonOption = document.getElementById('skeleton-option');
+                const enclosedOption = document.getElementById('enclosed-option');
+                const tierButtons = document.querySelectorAll('[class*="grid md:grid-cols-3"] button');
+                const configDisplay = document.getElementById('selected-config');
+
+                function updateConfig() {
+                    configDisplay.textContent = `${selectedStyle} • ${selectedTier} • ${selectedPrice}`;
+                }
+
+                skeletonOption.addEventListener('click', () => {
+                    skeletonOption.classList.add('border-green-500/50', 'bg-green-500/5');
+                    skeletonOption.classList.remove('border-gray-600/50', 'bg-transparent');
+                    enclosedOption.classList.remove('border-green-500/50', 'bg-green-500/5');
+                    enclosedOption.classList.add('border-gray-600/50', 'bg-transparent');
+                    selectedStyle = 'Skeleton Edition';
+                    updateConfig();
+                });
+
+                enclosedOption.addEventListener('click', () => {
+                    enclosedOption.classList.add('border-green-500/50', 'bg-green-500/5');
+                    enclosedOption.classList.remove('border-gray-600/50', 'bg-transparent');
+                    skeletonOption.classList.remove('border-green-500/50', 'bg-green-500/5');
+                    skeletonOption.classList.add('border-gray-600/50', 'bg-transparent');
+                    selectedStyle = 'Enclosed Edition';
+                    updateConfig();
+                });
+
+                tierButtons.forEach((button, index) => {
+                    button.addEventListener('click', () => {
+                        tierButtons.forEach(btn => {
+                            btn.classList.remove('ring-2', 'ring-green-500');
+                        });
+                        button.classList.add('ring-2', 'ring-green-500');
+                        
+                        if (index === 0) {
+                            selectedTier = 'DIY Kit';
+                            selectedPrice = '$29';
+                        } else if (index === 1) {
+                            selectedTier = 'Pre-Assembled';
+                            selectedPrice = '$55';
+                        } else {
+                            selectedTier = 'Extended';
+                            selectedPrice = '$75';
+                        }
+                        updateConfig();
+                    });
+                });
+            </script>
+
+            <p class="mt-8 text-sm text-gray-500 mono">Local Data. Zero Cloud. Total Transparency.</p>
+        </div>
+    </section>
+
+    <!-- Build It Yourself -->
+    <section class="py-20 px-4">
+        <div class="max-w-5xl mx-auto">
+            <div class="glass rounded-2xl p-8 md:p-12">
+                <h2 class="text-4xl md:text-5xl font-black mb-4">
+                    <span class="hardware-gold">Built</span> <span class="text-white">by You.</span>
+                </h2>
+                <p class="text-xl text-gray-300 mb-8 leading-relaxed">
+                    The RootLog Maker Kit is a love letter to electronics. It arrives as a curated set of high-quality components designed for the conscious builder—offering you the rare power to capture the pulse of the environment without ever touching the cloud.
+                </p>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
